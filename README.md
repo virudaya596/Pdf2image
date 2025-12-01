@@ -32,5 +32,3 @@ No files are uploaded or stored on any server.
 Your data remains completely private and secure.
 
 ---
-
-## File Structure
