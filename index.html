@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PDF2Image � Free PDF to Image (PNG) Converter Online</title>
+  <meta name="description"
+  content="Free online PDF to image converter. Turn PDF pages into high-quality PNG images in your browser. No upload, no watermark, everything stays on your device." />
+  <meta name="keywords" content="pdf to image, pdf to png, pdf converter online, pdf pages to images, pdf2image, pdf2img" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Convert PDF pages to high-quality PNG images directly in your browser. No upload, everything stays on your device."
+  />
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- PDF.js & JSZip from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.7.570/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="script.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Header -->
+    <header class="app-header" aria-label="PixelPDF header">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true"><ion-icon name="document-attach"></ion-icon></div>
+        <div class="brand-meta">
+          <div class="brand-title">PDF2Image</div>
+          <div class="brand-sub">Instant PDF → PNG in your browser</div>
+        </div>
+      </div>
+
+      <!-- <div class="pill-badge">
+        <span class="pill-dot"></span>
+        Client-side · No upload
+      </div> -->
+    </header>
+
+    <main class="layout">
+      <!-- Left: hero + converter -->
+      <section class="hero" aria-label="PDF to PNG converter">
+        <div class="hero-glow" aria-hidden="true"></div>
+
+        <div class="hero-content">
+          <div class="eyebrow">
+            <span>New</span> PDF to image converter
+          </div>
+
+          <h1 class="hero-title">
+            Convert <span>PDF</span> to <span>IMAGE</span>
+          </h1>
+
+          <p class="hero-sub">
+            Select any PDF and it’ll render every page as a high-quality image.
+          </p>
+
+          <div class="meta-row">
+            <div class="meta-chip">Unlimited pages</div>
+            <div class="meta-chip">Browser-based rendering</div>
+            <div class="meta-chip">Keeps files on your device</div>
+          </div>
+
+          <!-- Converter card -->
+          <div class="converter-card">
+
+            <label class="drop-zone" id="drop-zone">
+              <div class="drop-icon" aria-hidden="true">📄</div>
+              <div class="drop-title">Drop your PDF here</div>
+              <div class="drop-sub">
+                or tap to browse from your device
+              </div>
+
+              <div class="drop-actions">
+                <button type="button" class="btn-ghost" id="browse-btn">
+                  Choose PDF
+                </button>
+                <button type="button" class="btn-primary" id="convert-btn" disabled>
+                  Convert to images
+                </button>
+              </div>
+              <input vi
+                type="file"
+                id="pdf-input"
+                class="file-input"
+                accept="application/pdf"
+                aria-label="Choose PDF file"
+              />
+            </label>
+
+            <div class="status" aria-live="polite">
+              <div>
+                <span class="status-dot"></span>
+                <span id="status-text" class="status-strong">Waiting for a PDF…</span>
+              </div>
+              <div id="file-info">No file selected</div>
+            </div>
+             <div class="converter-header">
+              <div class="converter-title"></div>
+              <div class="converter-meta">
+                <span>Output: PNG</span>
+                <span>Engine: PDF.js</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: preview -->
+      <aside class="preview-card" aria-label="Preview and downloads">
+        <div class="preview-header">
+          <div class="preview-title">Preview & downloads</div>
+          <div class="preview-actions">
+            <div class="preview-pill" id="pages-count">
+              0 pages rendered
+            </div>
+            <button
+              class="btn-ghost"
+              id="download-all-btn"
+              disabled
+              style="display: none;"
+            >
+              Download all (ZIP)
+            </button>
+          </div>
+        </div>
+
+        <div class="preview-grid" id="images-grid">
+          <div class="empty-state" id="empty-state">
+            Your converted pages will appear here as PNG previews.<br />
+            After conversion you can download each page individually or save everything as a ZIP.
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Info / privacy -->
+    <section class="info-section" aria-label="Privacy and tips">
+      <div class="info-title">Privacy & reliability</div>
+      <p>
+        <span class="info-highlight">Your files never leave your device.</span>
+        PixelPDF runs fully in your browser using JavaScript. PDFs and generated images are processed
+        in memory only and are <strong>not</strong> uploaded to any server or stored by us.
+      </p>
+      <p>
+        If the converter stops working or previews don’t show correctly, try a hard refresh or clear your
+        browser cache for this site and load the page again. This usually fixes issues after updates.
+      </p>
+      <div class="info-title">LICENSE</div>
+      <p>
+        <span class="info-highlight">� MIT LICENSE</span> 2025 | VIRUDAYA 
+      </p>
+    </section>
+  </div>
+
+<div id="cookie-popup" style="
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 14px 18px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  z-index: 9999;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  max-width: 90%;
+">
+  <span>
+     This site uses <strong>0 cookies</strong> because we respect your privacy� 
+    and also because we are broke and can't afford analytics 
+  </span>
+  <button id="cookie-ok" style="
+    background: #ff3b3b;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+  ">Okay </button>
+</div>
+
+<script>
+  const cookiePopup = document.getElementById("cookie-popup");
+  const cookieOkBtn = document.getElementById("cookie-ok");
+
+  cookieOkBtn.addEventListener("click", () => {
+    cookiePopup.style.display = "none";
+    localStorage.setItem("cookieBannerClosed", "true");
+  });
+
+  if (localStorage.getItem("cookieBannerClosed") === "true") {
+    cookiePopup.style.display = "none";
+  }
+</script>
+
+</body>
+</html>
